@@ -5,14 +5,14 @@
       <div class="cart-list">
         <div class="cart-list-item">
           <img
-            src="@/assets/img/DragonLiver.png"
-            alt="Dragon Liver"
+            :src="shoppingCartItems[0].image"
+            :alt="shoppingCartItems[0].productName"
             class="product-image"
           />
           <div class="item-details-with-actions">
             <div class="item-details">
-              <h2>{{ shoppingCartItems[0].productName }}</h2>
-              <p class="price">{{ shoppingCartItems[0].price }}</p>
+              <h2>Dragon Liver</h2>
+              <p class="price">$1500</p>
               <p class="in-stock-status">
                 <i class="fa-solid fa-check"></i> In stock
               </p>
@@ -23,7 +23,7 @@
                 <input
                   type="text"
                   class="quantity-input"
-                  value="3"
+                  :value="shoppingCartItems[0].quantity"
                   aria-label="quantity"
                 />
                 <button class="quantity-change-button">+</button>
@@ -34,14 +34,14 @@
         </div>
         <div class="cart-list-item">
           <img
-            src="@/assets/img/GoldenSnitch.png"
-            alt="Golden Snitch"
+            :src="shoppingCartItems[1].image"
+            :alt="shoppingCartItems[1].productName"
             class="product-image"
           />
           <div class="item-details-with-actions">
             <div class="item-details">
-              <h2>{{ shoppingCartItems[1].productName }}</h2>
-              <p class="price">{{ shoppingCartItems[1].price }}</p>
+              <h2>Golden Snitch</h2>
+              <p class="price">$600</p>
               <p class="in-stock-status">
                 <i class="fa-solid fa-check"></i> In stock
               </p>
@@ -52,7 +52,7 @@
                 <input
                   type="text"
                   class="quantity-input"
-                  value="2"
+                  :value="shoppingCartItems[1].quantity"
                   aria-label="quantity"
                 />
                 <button class="quantity-change-button">+</button>
@@ -63,14 +63,14 @@
         </div>
         <div class="cart-list-item">
           <img
-            src="@/assets/img/UnicornTailHair.png"
-            alt="Unicorn Tail Hair"
+            :src="shoppingCartItems[2].image"
+            :alt="shoppingCartItems[2].productName"
             class="product-image"
           />
           <div class="item-details-with-actions">
             <div class="item-details">
-              <h2>{{ shoppingCartItems[2].productName }}</h2>
-              <p class="price">{{ shoppingCartItems[2].productName }}</p>
+              <h2>Unicorn Tail Hair</h2>
+              <p class="price">$1200</p>
               <p class="on-backorder-status">
                 <i class="fa-solid fa-hourglass-half"></i> On backorder
               </p>
@@ -81,7 +81,7 @@
                 <input
                   type="text"
                   class="quantity-input"
-                  value="1"
+                  :value="shoppingCartItems[2].quantity"
                   aria-label="quantity"
                 />
                 <button class="quantity-change-button">+</button>
@@ -91,7 +91,11 @@
           </div>
         </div>
         <div class="cart-list-item">
-          <img src="@/assets/img/Wand.jpg" alt="Wand" class="product-image" />
+          <img
+            :src="shoppingCartItems[3].image"
+            :alt="shoppingCartItems[3].productName"
+            class="product-image"
+          />
           <div class="item-details-with-actions">
             <div class="item-details">
               <h2>Wand</h2>
@@ -106,7 +110,7 @@
                 <input
                   type="text"
                   class="quantity-input"
-                  value="1"
+                  :value="shoppingCartItems[3].quantity"
                   aria-label="quantity"
                 />
                 <button class="quantity-change-button">+</button>
@@ -117,8 +121,8 @@
         </div>
         <div class="cart-list-item">
           <img
-            src="@/assets/img/Nimbus2000.jpg"
-            alt="Nimbus 2000"
+            :src="shoppingCartItems[4].image"
+            :alt="shoppingCartItems[4].productName"
             class="product-image"
           />
           <div class="item-details-with-actions">
@@ -135,7 +139,7 @@
                 <input
                   type="text"
                   class="quantity-input"
-                  value="1"
+                  :value="shoppingCartItems[4].quantity"
                   aria-label="quantity"
                 />
                 <button class="quantity-change-button">+</button>
@@ -147,8 +151,13 @@
       </div>
       <div class="order-summary">
         <h2>Order summary</h2>
-        <button class="toggle-details-button">Hide Details</button>
-        <div class="">
+        <button
+          class="toggle-details-button"
+          @click="hideDetails = !hideDetails"
+        >
+          {{ hideDetails ? "Show Details" : "Hide Details" }}
+        </button>
+        <div :class="{ 'hide-order-details': hideDetails }">
           <div class="summary-item">
             <span>Subtotal</span>
             <span>$13900</span>
@@ -173,8 +182,9 @@
 </template>
 
 <script setup>
-let username = "harry;";
+import { ref } from "vue";
 
+let username = "Harry";
 let shoppingCartItems = ref([
   {
     id: 1,
@@ -182,7 +192,7 @@ let shoppingCartItems = ref([
     price: 1500,
     isInStock: true,
     quantity: 3,
-    image: "src/assets/img/DragonLiver.png",
+    image: "/src/assets/img/DragonLiver.png",
   },
   {
     id: 2,
@@ -190,7 +200,7 @@ let shoppingCartItems = ref([
     price: 600,
     isInStock: true,
     quantity: 2,
-    image: "src/assets/img/GoldenSnitch.png",
+    image: "/src/assets/img/GoldenSnitch.png",
   },
   {
     id: 3,
@@ -198,7 +208,7 @@ let shoppingCartItems = ref([
     price: 1200,
     isInStock: false,
     quantity: 1,
-    image: "src/assets/img/UnicornTailHair.png",
+    image: "/src/assets/img/UnicornTailHair.png",
   },
   {
     id: 4,
@@ -206,7 +216,7 @@ let shoppingCartItems = ref([
     price: 2000,
     isInStock: true,
     quantity: 1,
-    image: "src/assets/img/Wand.jpg",
+    image: "/src/assets/img/Wand.jpg",
   },
   {
     id: 5,
@@ -214,9 +224,11 @@ let shoppingCartItems = ref([
     price: 5000,
     isInStock: true,
     quantity: 1,
-    image: "src/assets/img/Nimbus2000.jpg",
+    image: "/src/assets/img/Nimbus2000.jpg",
   },
 ]);
+
+let hideDetails = ref(false);
 </script>
 
 <style scoped>
