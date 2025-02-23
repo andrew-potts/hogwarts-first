@@ -13,20 +13,33 @@
             <div class="item-details">
               <h2>Dragon Liver</h2>
               <p class="price">$1500</p>
-              <p class="in-stock-status">
+              <p class="in-stock-status" v-if="shoppingCartItems[0].isInStock">
                 <i class="fa-solid fa-check"></i> In stock
+              </p>
+              <p class="on-backorder-status" v-else>
+                <i class="fa-solid fa-hourglass-half"></i> On backorder
               </p>
             </div>
             <div class="item-actions">
               <div class="quantity-selector">
-                <button class="quantity-change-button">−</button>
+                <button
+                  class="quantity-change-button"
+                  @click="decreaseOne(shoppingCartItems[0].id)"
+                >
+                  -
+                </button>
                 <input
                   type="text"
                   class="quantity-input"
-                  :value="shoppingCartItems[0].quantity"
+                  v-model.number="shoppingCartItems[0].quantity"
                   aria-label="quantity"
                 />
-                <button class="quantity-change-button">+</button>
+                <button
+                  class="quantity-change-button"
+                  @click="increaseOne(shoppingCartItems[0].id)"
+                >
+                  +
+                </button>
               </div>
               <button class="remove-item">✕</button>
             </div>
@@ -229,6 +242,21 @@ let shoppingCartItems = ref([
 ]);
 
 let hideDetails = ref(false);
+
+function decreaseOne(id) {
+  shoppingCartItems.value.some((item) => {
+    if (item.id == id && item.quantity != 0) {
+      item.quantity = item.quantity - 1;
+    }
+  });
+}
+function increaseOne(id) {
+  shoppingCartItems.value.some((item) => {
+    if (item.id == id) {
+      item.quantity = item.quantity + 1;
+    }
+  });
+}
 </script>
 
 <style scoped>
